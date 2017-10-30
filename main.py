@@ -8,7 +8,7 @@ app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 app.secret_key = "abc"
 
-class Blog(db.Model):       #####--- SQL database Blog
+class Blog(db.Model):      
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(140))
@@ -20,7 +20,7 @@ class Blog(db.Model):       #####--- SQL database Blog
         self.body = body
         self.owner = owner
 
-class User(db.Model):      #####--- SQL database User
+class User(db.Model):     
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(120), unique=True)
@@ -34,7 +34,7 @@ class User(db.Model):      #####--- SQL database User
     def __repr__(self):
         return self.username
 
-#############################################------   Username and Password Validation   ------####################################
+
 
 def validate_username(username):
     if len(username) >= 3 and len(username) < 20:
@@ -71,7 +71,7 @@ def validate_password(password, verify):
 
 
 
-##########################--- Login check ---###############################
+
 @app.before_request
 def require_login():
     allowed_routes = ['login', 'signup', 'blog', 'index']
@@ -80,7 +80,7 @@ def require_login():
         return redirect('/login')
 
 
-###################################################
+
 @app.route('/', methods=['GET'])
 def index():
     users = User.query.all()
