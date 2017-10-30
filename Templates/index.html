@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Blogz Users:</h1>
+    <hr/>
+    {% if users|length == 0 %}
+    <p>no users yet</p>
+    {% else %}
+    {% for user in users %}
+      <div>
+        <ul>
+          <li>
+            <a href="blogz?user={{user.username}}">{{user.username}}</div></a>
+          </li>
+        </ul>
+      </div>
+      {% endfor%}
+    {% endif %}
+{% endblock %}

@@ -1,20 +1,43 @@
 <!doctype html>
-
 <html>
-    <head>
+  <head>
+    <title>Blogz</title>
+    <style>
+      .error {
+        color: red;
+      }
+      textarea { width: 650px; height: 200px }
+    </style>
+  </head>
+  <body>
+    <div style='float: right'>
+      {% if 'username' in session %}
+        {{ session['username'] }}
+        <form action="/logout" method="post" id='logout'>
+          <input type="submit" value="Log Out" />
+        </form>
+      {% else %}
+        <a href="login">login</a> | <a href="signup">Signup</a>
+      {% endif %}
+    </div>
 
-        <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='styles/style.css') }}">
-        <title>{{title}}</title>
+    <div>
+      <a href="/">Home</a>
+      <a href="/blogz">All Blogs</a>
+      <a href="/newpost">New Post</a>
+    </div>
 
-    </head>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    <ul>
+      {% for category,message in messages %}
+        <li class="{{category}}">{{message}}</li>
+      {% endfor %}
+    </ul>
 
-<body>
+    {% endwith %}
 
-    <a href="/">Main Blog Page   </a><br/>
-    <a href="/newpost">   Create A Blog Entry</a>
     {% block content %}
     {% endblock %}
 
-</body>
-
+  </body>
 </html>
